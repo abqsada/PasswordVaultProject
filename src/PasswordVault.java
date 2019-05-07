@@ -4,29 +4,37 @@
 * Vault accessed with Master Password
 */
 
-import java.util.ArrayList;
-
 public class PasswordVault {
-    
-    PasswordVault() {
-        String vault[][] = new String[2][21];
-        int i, j = 0;
-        String k = "null";
-        
-        // Test print empty vault
-        for(i=0;i<vault.length;i++){
-            for(j=0;j<vault.length;j++) {
-                vault[i][j]= k;
-            }
-        }
 
-        for(i=0;i<vault.length;i++){
-            for(j=0;j< vault.length;j++) {
-                System.out.print(vault[i][j]+" ");
+    PasswordVault() {
+        // Create Vault
+        String[][] vault = new String[3][21];
+        int row;
+        int column;
+        int count = 0;
+        System.out.println("Vault");
+        // Test print empty vault
+        // Issue: make column headers
+        vault[0][0] = "Account";
+        vault[1][0] = "Username";
+        vault[2][0] = "Password";
+
+        // Issue:
+        for(row=0; row  < vault.length * 7 ; row++) {
+            for(column=0; column < vault.length; column++){
+                if (row != 0 && column % 3 == 0) {
+                    System.out.println(count);
+                    count++;
+                }
+                System.out.print(vault[column][row % 21]+"   |   ");
+
             }
         }
     }
 
+    // Encrypt the vault
+
+    // Decrypt the vault
     public static void openSesame(String pwAttempt) {
         // when running, password will decrypt, otherwise vault displays faulty passwords.
         String testPhrase = "Benvenuti ragazza, piacere di rivederti";
@@ -40,6 +48,5 @@ public class PasswordVault {
     public static void main(String[] args) {
         PasswordVault test = new PasswordVault();
     }
-
 
 }
