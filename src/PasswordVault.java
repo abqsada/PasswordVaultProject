@@ -9,17 +9,18 @@ public class PasswordVault {
     PasswordVault() {
         // Create Vault
         String[][] vault = new String[3][21];
+
         int row;
         int column;
         int count = 0;
-        System.out.println("Vault");
-        // Test print empty vault
-        // Issue: make column headers
+        System.out.println("\t\t\t\tVault");
+
+        // Column headers
         vault[0][0] = "Account";
         vault[1][0] = "Username";
         vault[2][0] = "Password";
 
-        // Issue:
+        // Test print empty vault
         for(row=0; row  < vault.length * 7 ; row++) {
             for(column=0; column < vault.length; column++){
                 if (row != 0 && column % 3 == 0) {
@@ -27,7 +28,6 @@ public class PasswordVault {
                     count++;
                 }
                 System.out.print(vault[column][row % 21]+"   |   ");
-
             }
         }
     }
@@ -43,10 +43,6 @@ public class PasswordVault {
         // reserve first password as a phrase
 
         // Print out all vault entries
-    }
-
-    public static void main(String[] args) {
-        PasswordVault test = new PasswordVault();
     }
 
 }
