@@ -30,5 +30,7 @@ public class ManagePassword {
         System.out.println("Which account would you like to remove: ");
         String account = input.next();
 
+        // Set account info to null
+
     }
 }

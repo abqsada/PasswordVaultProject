@@ -34,41 +34,47 @@ public class Startup {
     // Give the user options for functions
     // Called in password verification
     public static void mainMenu() {
-        // Show password button --> JavaFX (if there's time)
+        // Show options and exit
         System.out.println("1 | Search for account info");
-        // Manage passwords button - will give option to add / update / delete
         System.out.println("2 | Manage your Passwords");
-        // Display all passwords button
         System.out.println("3 | See all Passwords");
-
+        System.out.println("4 | Exit");
+        // Select an option
         Scanner in = new Scanner(System.in);
-        System.out.println("What would you like to do? \n(Type 1, 2, 3): ");
-
-        if (in.nextInt() == 1) {
+        System.out.println("What would you like to do? \n(Type 1, 2, 3, 4): ");
+        int select = in.nextInt();
+        in.close();
+        // Take you to your selected option
+        if (select == 1) {
             // searchPW from ShowPassword
-        } else if (in.nextInt() == 2) {
-            // Menu - addPW | updatePW | deletePW
+            System.out.println("Type account name: ");
+            String accountSearch = in.next();
+            in.close();
+        } else if (select == 2) {
+            // Manage Passwords Menu - addPW | updatePW | deletePW
             System.out.println("1 | Add new Account to Vault");
             System.out.println("2 | Update a Password in Vault");
             System.out.println("3 | Delete a Password from Vault");
             System.out.println("What would you like to do? \n(Type 1, 2, 3): ");
-            if (in.nextInt() == 1) {
+            int manage = in.nextInt();
+            in.close();
+
+            if (manage == 1) {
                 ManagePassword.newPassword();
-            } else if (in.nextInt() == 2) {
+            } else if (manage == 2) {
                 ManagePassword.deletePassword();
-            } else if (in.nextInt() == 3) {
+            } else if (manage == 3) {
                 ManagePassword.deletePassword();
+                in.close();
             } else {
                 System.out.println("Not a valid option\nReturning to main menu");
                 mainMenu();
             }
-
-
-        } else if (in.nextInt() == 3) {
+        } else if (select == 3) {
             // Show vault
-
-
-
+        } else if (select == 4) {
+            // Exit the application
+            System.exit(0);
         }
     }
 }

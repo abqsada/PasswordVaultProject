@@ -4,32 +4,37 @@
 * Vault accessed with Master Password
 */
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 public class PasswordVault {
 
-    PasswordVault() {
+    public static void main(String[] args) {
         // Create Vault
-        String[][] vault = new String[3][21];
+        String[][] passwords = new String[21][3];
 
+        // Column headers
+        passwords[0][0] = "Account";
+        passwords[0][1] = "Username";
+        passwords[0][2] = "Password";
+        // Test print empty vault
+        System.out.println("\t\t\t\tVault");
         int row;
         int column;
         int count = 0;
-        System.out.println("\t\t\t\tVault");
-
-        // Column headers
-        vault[0][0] = "Account";
-        vault[1][0] = "Username";
-        vault[2][0] = "Password";
-
-        // Test print empty vault
-        for(row=0; row  < vault.length * 7 ; row++) {
-            for(column=0; column < vault.length; column++){
-                if (row != 0 && column % 3 == 0) {
+        for(row=0; row  <21 ; row++) {
+            for(column=0; column < 3; column++){
+                if (row != 0 && column % 3 == 0 ) {
                     System.out.println(count);
                     count++;
+                    column = 0;
                 }
-                System.out.print(vault[column][row % 21]+"   |   ");
+                System.out.print(passwords[row][column] + "   |   ");
             }
         }
+
+        // Write Vault to .txt file
     }
 
     // Encrypt the vault
@@ -37,7 +42,7 @@ public class PasswordVault {
     // Decrypt the vault
     public static void openSesame(String pwAttempt) {
         // when running, password will decrypt, otherwise vault displays faulty passwords.
-        String testPhrase = "Benvenuti ragazza, piacere di rivederti";
+        String testPhrase = "Benvenuta ragazza, piacere di rivederti";
        
 
         // reserve first password as a phrase
@@ -45,4 +50,6 @@ public class PasswordVault {
         // Print out all vault entries
     }
 
+
 }
+
