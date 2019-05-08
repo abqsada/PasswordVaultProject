@@ -4,11 +4,15 @@
 * Vault accessed with Master Password
 */
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import com.sun.xml.internal.txw2.output.DataWriter;
+
+import java.io.*;
 
 public class PasswordVault {
+
+    private final static int[] chain = {
+        1563, 198, 6549, 516, 5287, 794, 3894, 9456
+    };
 
     public static void main(String[] args) {
         // Create Vault
@@ -35,21 +39,55 @@ public class PasswordVault {
         }
 
         // Write Vault to .txt file
+        // write(String account, String username, String password);
+    }
+
+    public static void write(String stuff) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(passwords.txt)));
+            writer.write(stuff);
+            writer.flush();
+            writer.close();
+            System.out.println("Done!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // Encrypt the vault
-
-    // Decrypt the vault
-    public static void openSesame(String pwAttempt) {
-        // when running, password will decrypt, otherwise vault displays faulty passwords.
-        String testPhrase = "Benvenuta ragazza, piacere di rivederti";
-       
-
-        // reserve first password as a phrase
-
-        // Print out all vault entries
+    public static String encrypt(String key) {
+        String result = " ";
+        int l = key.length();
+        char ch;
+        int ck = 0;
+        for (int i = 0; i < l; i++) {
+            if (ck >= chain.length - 1) {
+                ck =0;
+            }
+            ch = key.charAt(i);
+            ch += chain[ck];   //**** Issue: better encryption****
+            result += ch;
+            ck++;
+        }
+        return result;
     }
 
-
-}
+    // Decrypt the vault
+    public static String openSesame(String key) {
+            String result = " ";
+            int l = key.length();
+            char ch;
+            int ck = 0;
+            for (int i = 0; i < l; i++) {
+                if (ck >= chain.length - 1) {
+                    ck = 0;
+                }
+                ch = key.charAt(i);
+                ch -= chain[ck];   //**** Issue: better encryption****
+                result += ch;
+            }
+            return result;
+        }
+    }
 
