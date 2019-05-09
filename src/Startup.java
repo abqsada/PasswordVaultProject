@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileReader;
 import java.util.Scanner;
 
 public class Startup {
@@ -35,21 +37,23 @@ public class Startup {
     // Called in password verification
     public static void mainMenu() {
         // Show options and exit
-        System.out.println("1 | Search for account info");
-        System.out.println("2 | Manage your Passwords");
-        System.out.println("3 | See all Passwords");
-        System.out.println("4 | Exit");
+        System.out.println( "1 | Search for account info"
+                        + "\n2 | Manage your Passwords"
+                        + "\n3 | See all Passwords"
+                        + "\n4 | Exit");
+
         // Select an option
         Scanner in = new Scanner(System.in);
         System.out.println("What would you like to do? \n(Type 1, 2, 3, 4): ");
         int select = in.nextInt();
-        in.close();
+
         // Take you to your selected option
         if (select == 1) {
             // searchPW from ShowPassword
             System.out.println("Type account name: ");
             String accountSearch = in.next();
-            in.close();
+
+
         } else if (select == 2) {
             // Manage Passwords Menu - addPW | updatePW | deletePW
             System.out.println("1 | Add new Account to Vault");
@@ -57,7 +61,7 @@ public class Startup {
             System.out.println("3 | Delete a Password from Vault");
             System.out.println("What would you like to do? \n(Type 1, 2, 3): ");
             int manage = in.nextInt();
-            in.close();
+
 
             if (manage == 1) {
                 ManagePassword.newPassword();
@@ -65,7 +69,7 @@ public class Startup {
                 ManagePassword.deletePassword();
             } else if (manage == 3) {
                 ManagePassword.deletePassword();
-                in.close();
+                // in.close();
             } else {
                 System.out.println("Not a valid option\nReturning to main menu");
                 mainMenu();

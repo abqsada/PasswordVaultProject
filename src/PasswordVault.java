@@ -7,21 +7,22 @@
 import com.sun.xml.internal.txw2.output.DataWriter;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class PasswordVault {
 
     private final static int[] chain = {
         1563, 198, 6549, 516, 5287, 794, 3894, 9456
     };
+    // Create Vault
+    private static String[][] passwords = new String[21][3];
 
-    public static void main(String[] args) {
-        // Create Vault
-        String[][] passwords = new String[21][3];
-
+    public static void vaultSetup() {
         // Column headers
         passwords[0][0] = "Account";
         passwords[0][1] = "Username";
         passwords[0][2] = "Password";
+
         // Test print empty vault
         System.out.println("\t\t\t\tVault");
         int row;
@@ -37,21 +38,43 @@ public class PasswordVault {
                 System.out.print(passwords[row][column] + "   |   ");
             }
         }
-
-        // Write Vault to .txt file
-        // write(String account, String username, String password);
     }
 
-    public static void write(String stuff) {
+    public static void newAccount(int x, String account, String username, String password) {
+        passwords[x][0] = account;
+        passwords[x][1] = username;
+        passwords[x][2] = password;
+    }
+
+    public static void fileSetup() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(passwords.txt)));
-            writer.write(stuff);
+            String headers = "\t\t\tVault\n\tAccount\t|\tUsername\t|\tPassword\t|";
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("passwords.txt")));
+            writer.write(headers);
             writer.flush();
             writer.close();
             System.out.println("Done!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void writeAppend(String stuff) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("passwords.txt", true));
+            writer.append("|\t");
+            writer.append(stuff + "\t|");
+            writer.close();
+            System.out.println("Done.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readFile(String search) {
+        Scanner read = new Scanner("passwords.txt");
+        read.findInLine(search);
+        return read.nextLine();
 
     }
 
@@ -84,7 +107,7 @@ public class PasswordVault {
                     ck = 0;
                 }
                 ch = key.charAt(i);
-                ch -= chain[ck];   //**** Issue: better encryption****
+                ch -= chain[ck];
                 result += ch;
             }
             return result;

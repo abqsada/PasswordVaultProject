@@ -3,9 +3,11 @@
 import java.util.Scanner;
 
 public class ManagePassword {
+    // keep track of password placement
+    public static int subscript = 0;
 
     // User generated password for an account
-    public void newPassword() {
+    public static void newPassword() {
         Scanner input = new Scanner(System.in);
 
         System.out.println("What's this account for? ");
@@ -14,17 +16,23 @@ public class ManagePassword {
         String username = input.next();
         System.out.println("Password: ");
         String password = input.next();
-        this.save(account, username, password);
+        save(account, username, password);
     }
 
     // Method to save a password
-    public void save(String account, String username, String password) {
+    public static void save(String account, String username, String password) {
+        // set subscript
+        subscript++;
         // encrypt password
         String pWord = PasswordVault.encrypt(password);
+        // enter into vault
+        PasswordVault.newAccount(subscript, account, username, pWord);
+        // Format new entry
+        PasswordVault.writeAppend("\n" + subscript);
         // Write to passwords.txt file
-        PasswordVault.write(account);
-        PasswordVault.write(username);
-        PasswordVault.write(pWord);
+        PasswordVault.writeAppend(account);
+        PasswordVault.writeAppend(username);
+        PasswordVault.writeAppend(pWord);
     }
 
     public static void deletePassword(){
